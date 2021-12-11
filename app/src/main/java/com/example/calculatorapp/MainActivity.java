@@ -15,31 +15,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         Button numberOneButton = findViewById(R.id.numberOneButton);
-        numberOneButton.setOnClickListener((this));
+        numberOneButton.setOnClickListener(this);
 
         Button numberTwoButton = findViewById(R.id.numberTwoButton);
-        numberTwoButton.setOnClickListener((this));
+        numberTwoButton.setOnClickListener(this);
 
         Button numberThreeButton = findViewById(R.id.numberThreeButton);
-        numberThreeButton.setOnClickListener((this));
+        numberThreeButton.setOnClickListener(this);
 
         Button numberFourButton = findViewById(R.id.numberFourButton);
-        numberFourButton.setOnClickListener((this));
+        numberFourButton.setOnClickListener(this);
 
         Button numberFiveButton = findViewById(R.id.numberFiveButton);
-        numberFiveButton.setOnClickListener((this));
+        numberFiveButton.setOnClickListener(this);
 
         Button numberSixButton = findViewById(R.id.numberSixButton);
-        numberSixButton.setOnClickListener((this));
+        numberSixButton.setOnClickListener(this);
 
         Button numberSevenButton = findViewById(R.id.numberSevenButton);
-        numberSevenButton.setOnClickListener((this));
+        numberSevenButton.setOnClickListener(this);
 
         Button numberEightButton = findViewById(R.id.numberEightButton);
-        numberEightButton.setOnClickListener((this));
+        numberEightButton.setOnClickListener(this);
 
         Button numberNineButton = findViewById(R.id.numberNineButton);
-        numberNineButton.setOnClickListener((this));
+        numberNineButton.setOnClickListener(this);
 
         Button resetButton = findViewById(R.id.resetButton);
         resetButton.setOnClickListener(this);
