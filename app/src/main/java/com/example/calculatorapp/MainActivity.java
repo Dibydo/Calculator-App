@@ -10,13 +10,13 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    int temp = 0;
-    String lastButtonPressed;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Button numberZeroButton = findViewById(R.id.numberZeroButton);
+        numberZeroButton.setOnClickListener(this);
 
         Button numberOneButton = findViewById(R.id.numberOneButton);
         numberOneButton.setOnClickListener(this);
@@ -68,8 +68,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         TextView resultTextView = findViewById(R.id.resultTextView);
-        // TODO сделвть нормально через eval
         switch (v.getId()) {
+            case R.id.numberZeroButton:
+                resultTextView.setText(new StringBuilder().append(resultTextView.getText()).append("0").toString());
+                break;
             case R.id.numberOneButton:
                 resultTextView.setText(new StringBuilder().append(resultTextView.getText()).append("1").toString());
                 break;
@@ -97,53 +99,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.numberNineButton:
                 resultTextView.setText(new StringBuilder().append(resultTextView.getText()).append("9").toString());
                 break;
-            case R.id.resetButton:
-                resultTextView.setText("");
-                temp = 0;
-                lastButtonPressed = "";
-                break;
             case R.id.plusButton:
-                temp += Integer.parseInt(resultTextView.getText().toString());
-                resultTextView.setText("");
-                lastButtonPressed = "plus";
+                resultTextView.setText(new StringBuilder().append(resultTextView.getText()).append("+").toString());
                 break;
             case R.id.minusButton:
-                temp += Integer.parseInt(resultTextView.getText().toString());
-                resultTextView.setText("");
-                lastButtonPressed = "minus";
+                resultTextView.setText(new StringBuilder().append(resultTextView.getText()).append("-").toString());
                 break;
             case R.id.multiplyButton:
-                if (temp == 0) {
-                    temp = Integer.parseInt(resultTextView.getText().toString());
-                } else {
-                    temp *= Integer.parseInt(resultTextView.getText().toString());
-                }
-                resultTextView.setText("");
-                lastButtonPressed = "multiply";
+                resultTextView.setText(new StringBuilder().append(resultTextView.getText()).append("*").toString());
                 break;
             case R.id.divisionButton:
-                temp = Integer.parseInt(resultTextView.getText().toString());
-                resultTextView.setText("");
-                lastButtonPressed = "divide";
+                resultTextView.setText(new StringBuilder().append(resultTextView.getText()).append("/").toString());
                 break;
             case R.id.equalsButton:
-                switch (lastButtonPressed) {
-                    case "plus":
-                        resultTextView.setText(String.valueOf(Integer.parseInt(resultTextView.getText().toString()) + temp));
-                        break;
-                    case "minus":
-                        resultTextView.setText(String.valueOf(temp - Integer.parseInt(resultTextView.getText().toString())));
-                        break;
-                    case "multiply":
-                        resultTextView.setText(String.valueOf(Integer.parseInt(resultTextView.getText().toString()) * temp));
-                        break;
-                    case "divide":
-                        resultTextView.setText(String.valueOf(temp / Integer.parseInt(resultTextView.getText().toString())));
-                        break;
+                if (resultTextView.getText().toString().equals("ERROR")) {
+                    break;
                 }
-
+                String equationResult = String.valueOf(eval(resultTextView.getText().toString()));
+                String substring = equationResult.length() > 2 ? equationResult.substring(equationResult.length() - 2) : equationResult;
+                if (substring.equals(".0")) {
+                    equationResult = String.valueOf((int) eval(resultTextView.getText().toString()));
+                } else if (equationResult.equals("Infinity")) {
+                    resultTextView.setText(R.string.errorMessage);
+                    break;
+                }
+                resultTextView.setText(equationResult);
+                break;
+            case R.id.resetButton:
+                resultTextView.setText("");
+                break;
             default:
-                //resultTextView.setText(R.string.errorMessage);
+                resultTextView.setText(R.string.errorMessage);
                 break;
         }
     }
